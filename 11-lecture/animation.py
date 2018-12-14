@@ -21,10 +21,11 @@ U[0,:] = u0(x)
 #
 
 
-
 # 
 # Так можно сделать анимацию (нужно запустить не в Jupyter)
 #
+
+# Удалите это, когда получите численное решение
 for i in range(1, N+1):
     U[i,:] = U[0,:] * (N - i)/N
 
@@ -32,17 +33,16 @@ fig, ax = plt.subplots()
 
 line, = ax.plot(x, u0(x))
 
-
-def init():  # only required for blitting to give a clean slate.
+def init():
     line.set_ydata([np.nan] * len(x))
     return line,
 
 def animate(i):
     line.set_ydata(U[i,:])  # update the data.
     return line,
-# interval - расстояние между кадрами в мс
+# interval - расстояние между кадрами в миллисекундах
 ani = animation.FuncAnimation(
-    fig, animate, init_func=init, interval=20, frames = np.arange(nt+1), blit=True, save_count=50)
+    fig, animate, init_func=init, interval=100, frames = np.arange(nt+1), blit=True, save_count=50)
 
 # To save the animation, use e.g.
 #
